@@ -1,6 +1,7 @@
 (ns strongapp.core
   (:require
-   [clojure-csv.core :refer [parse-csv]]))
+   [clojure-csv.core :refer [parse-csv]]
+   [strongapp.database :refer [get-test]]))
 
 ;; https://stackoverflow.com/a/13646484
 (defn open-file
@@ -42,8 +43,12 @@
   (let [csv-data (ret-csv-data csv-file)]
     csv-data))
 
-(defn -main
+(defn main
   [& args]
   (println "Opening file")
   (let [results (fetch-csv-data "resources/strong.csv")]
-    (println results)))
+    (println (type results))))
+
+(defn -main
+  []
+  (println (get-test)))
