@@ -1,7 +1,7 @@
 (ns strongapp.core
   (:require
    [clojure-csv.core :refer [parse-csv]]
-   [strongapp.database :refer [get-test]]))
+   [strongapp.database :refer [insert]]))
 
 ;; https://stackoverflow.com/a/13646484
 (defn open-file
@@ -51,4 +51,4 @@
 
 (defn -main
   []
-  (println (get-test)))
+  (println (insert "postgresql://@localhost:5432/strongdb")))

@@ -12,6 +12,12 @@
 (defn get-test
   []
   (sqlQuery))
+
+(defn insert
+  [spec]
+  (sql/insert! spec
+               :test {:data "Hello World"}))
+
 ;;(defn pooled-db
 ;;  []
 ;;  (pg/pool :host "localhost" :user "strongapp" :dbname "strongdb" :password "foobar"))
