@@ -7,7 +7,7 @@
 
 (specs/instrument) ; instruments all next.jdbc API functions for gucci error messages
 
-(def db {:dbtype "postgresql" :dbname "strongdb" :user "strongapp" :password "foobar"})
+(def db {:dbtype "postgresql" :dbname "strongdb" :user (System/getenv "STRONGAPP_DB_USER") :password (System/getenv "STRONGAPP_DB_PASS")})
 (def ds (jdbc/get-datasource db))
 
 (defn insert
