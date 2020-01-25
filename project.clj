@@ -6,6 +6,7 @@
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/java.jdbc "0.7.11"]
                  [clojure-csv/clojure-csv "2.0.1"]
+                 [org.postgresql/postgresql "42.1.4"]
                  [seancorfield/next.jdbc "1.0.13"]]
   :main ^:skip-aot strongapp.core
   :target-path "target/%s"

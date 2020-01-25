@@ -1,12 +1,22 @@
 (ns strongapp.database
   (:require
-   [clojure.java.jdbc :as jdbc]
+   [next.jdbc :as jdbc]
+   [next.jdbc.sql :as sql]
+   [next.jdbc.specs :as specs]
    [clojure.set :as cljset]))
 
+(specs/instrument) ; instruments all next.jdbc API functions for gucci error messages
+
+(def db {:dbtype "postgresql" :dbname "strongdb" :user "strongapp" :password "foobar"})
+(def ds (jdbc/get-datasource db))
 
 (defn insert
-  [spec data]
-  (jdbc/insert-multi! spec :test_exercises data))
+  [data]
+  (jdbc/execute! ds ["
+    insert into test(id,data)
+      values('5','hello strongapp')
+  "]))
+
 
 (defn groom-data
   [data]

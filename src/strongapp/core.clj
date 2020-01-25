@@ -29,4 +29,4 @@
   [& args]
   (def data (csv-to-map (slurp "resources/strong.csv") :key :keyword))
   (def finaldata (groom-data data))
-  (insert "postgresql://strongapp:foobar@localhost:5432/strongdb" finaldata))
+  (insert finaldata))
