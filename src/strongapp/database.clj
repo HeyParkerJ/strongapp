@@ -47,11 +47,7 @@
   (def datemap (map #(hash-map :id %2 :date %1) (set dates) (iterate inc 0)) )
   (def newdata (reduce (fn [acc m] (assoc acc (:date m) (:id m))) {} datemap))
   (def moredata (into #{} (map #(assoc % :id (newdata (:date %)))) data))
-  ;(def finaldata (map (parse-int %1)))
   (def finaldata (map updateValues moredata))
-
-  ;; We don't get this far
-  (println "finaldata" finaldata)
 
   ;; TODO - Do this earlier
   (for [d finaldata] (cljset/rename-keys d {:id :exercise-id})))
