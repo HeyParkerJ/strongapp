@@ -16,11 +16,20 @@
 (def ds (jdbc/get-datasource db))
 
 (def keysToParseToInteger [:rpe :reps :seconds :set-order :exercise-id :distance])
+
 (defn insert
   [data]
   (jdbc/execute! ds (-> (helpers/insert-into :test-exercises)
                         (helpers/values data)
                         sql/format)))
+
+;; This actually just puts all the data into the database. Need to rename.
+(defn get-all-data
+  [args]
+  ; TODO - check what args are
+  (jdbc/execute! ds (-> (helpers/select :*)
+                        (helpers/from :test_exercises)
+                        (sql/format))))
 
 (defn parse-number
   "Reads a number from a string. Returns nil if not a number."
@@ -36,6 +45,7 @@
   (update-vals data
                [:rpe :reps :seconds :set-order :exercise-id :distance :weight]
                parse-number))
+
 
 ;; TODO - Convert to -> syntax
 (defn groom-data

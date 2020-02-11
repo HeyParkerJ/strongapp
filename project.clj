@@ -10,7 +10,9 @@
                  [org.clojure/java.jdbc "0.7.11"]
                  [org.postgresql/postgresql "42.1.4"]
                  [seancorfield/next.jdbc "1.0.13"]
-                 [ring/ring-defaults "0.3.2"]]
+                 [ring/ring-defaults "0.3.2"]
+                 [ring/ring-core "1.8.0"]
+                 [ring/ring-jetty-adapter "1.8.0"]]
   :main ^:skip-aot strongapp.core
   :plugins [[lein-ring "0.12.5"]]
   :ring {:handler strongapp.handler/app}

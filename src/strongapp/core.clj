@@ -1,7 +1,7 @@
 (ns strongapp.core
   (:require
    [clojure-csv.core :refer [parse-csv]]
-   [strongapp.database :refer [groom-data insert]]
+   [strongapp.database :refer [groom-data insert get-all-data]]
    [clojure.string :as s]))
 
 (defn- keywordize-
@@ -25,8 +25,23 @@
         output (map (partial zipmap (reverse (first c))) (map reverse (rest c)))]
     (if (= key :keyword) (map keywordize- output) output)))
 
-(defn -main
+(defn load-csv-data
   [& args]
   (def data (csv-to-map (slurp "resources/strong.csv") :key :keyword))
   (def finaldata (groom-data data))
   (insert finaldata))
+
+
+;; main
+(defn -main
+  [& args]
+  (get-all-data nil))
+
+;; handler
+;; For making the repl interaction not really suck when executing run-jetty
+;; https://stackoverflow.com/questions/2706044/how-do-i-stop-jetty-server-in-clojure#2706239
+(defn handler [request]
+  {:status 200
+   :headers {"Content-Type" "text/html"}
+   :body "Hello World"})
+
