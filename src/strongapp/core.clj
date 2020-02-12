@@ -2,7 +2,8 @@
   (:require
    [clojure-csv.core :refer [parse-csv]]
    [strongapp.database :refer [groom-data insert get-all-data]]
-   [clojure.string :as s]))
+   [clojure.string :as s]
+   [ring.adapter.jetty :refer [run-jetty]]))
 
 (defn- keywordize-
   "takes a map, converts string keys to keyword keys
@@ -38,10 +39,11 @@
   (get-all-data nil))
 
 ;; handler
-;; For making the repl interaction not really suck when executing run-jetty
-;; https://stackoverflow.com/questions/2706044/how-do-i-stop-jetty-server-in-clojure#2706239
 (defn handler [request]
   {:status 200
    :headers {"Content-Type" "text/html"}
    :body "Hello World"})
 
+;; For making the repl interaction not really suck when executing run-jetty
+;; https://stackoverflow.com/questions/2706044/how-do-i-stop-jetty-server-in-clojure#2706239
+(defonce server (run-jetty #'handler {:port 3000 :join? false}))
