@@ -1,6 +1,8 @@
 (ns strongapp.core
   (:require
    [clojure-csv.core :refer [parse-csv]]
+   [compojure.core :refer :all]
+   [compojure.route :as route]
    [strongapp.database :refer [groom-data insert get-all-data]]
    [clojure.string :as s]
    [ring.adapter.jetty :refer [run-jetty]]))
@@ -42,8 +44,12 @@
 (defn handler [request]
   {:status 200
    :headers {"Content-Type" "text/html"}
-   :body "Hello World"})
+   :body get-all-data}) ;; Body can be one of four response types - String, ISeq, File, InputStream
 
 ;; For making the repl interaction not really suck when executing run-jetty
 ;; https://stackoverflow.com/questions/2706044/how-do-i-stop-jetty-server-in-clojure#2706239
 (defonce server (run-jetty #'handler {:port 3000 :join? false}))
+
+(defroutes app
+  (GET "/" [] "<h2>Hello World</h2>")
+  (route/not-found "<h2>Page not found</h2>"))

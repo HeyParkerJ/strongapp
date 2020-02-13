@@ -15,7 +15,7 @@
                  [ring/ring-jetty-adapter "1.8.0"]]
   :main ^:skip-aot strongapp.core
   :plugins [[lein-ring "0.12.5"]]
-  :ring {:handler strongapp.handler/app}
+  :ring {:handler strongapp.core/app}
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}
              :dev {:dependencies [[javax.servlet/servlet-api "2.5"]
